@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\GroundControl.cs" />
+     <Compile Include="Assets\MoveObject.cs" />
+     <Compile Include="Assets\ObjectDestroyZone.cs" />
      <Compile Include="Assets\PlayerControl.cs" />
      <Compile Include="Assets\Rocks and Boulders 2\Shaders\Desaturate\DesaturateEffect.cs" />
      <Compile Include="Assets\Rocks and Boulders 2\Shaders\RotateGameObject.cs" />
@@ -132,7 +134,7 @@
      <None Include="Assets\Rocks and Boulders 2\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\EdgeDetectX.shader" />
      <None Include="Assets\Rocks and Boulders 2\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAAPreset2.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>C:/Users/Krille/Documents/GitHub/TDDD23/Teachadillo/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ <HintPath>C:/Users/Dennis/Documents/GitHub/TDDD23/Teachadillo/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

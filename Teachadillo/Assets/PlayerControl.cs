@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class PlayerControl : MonoBehaviour {
 
@@ -44,6 +45,8 @@ public class PlayerControl : MonoBehaviour {
 			GetComponent<Animation>().Stop("Run");
 			GetComponent<Animation>().Play("Ithcing");
 		}
+		string valueString = "Your string";
+		print(valueString);
 		Destroy(coll.gameObject);
 	}
 }
