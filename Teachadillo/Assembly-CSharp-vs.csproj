@@ -46,9 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\DestroyZone.cs" />
      <Compile Include="Assets\GroundControl.cs" />
      <Compile Include="Assets\MoveObject.cs" />
-     <Compile Include="Assets\ObjectDestroyZone.cs" />
      <Compile Include="Assets\PlayerControl.cs" />
      <Compile Include="Assets\Rocks and Boulders 2\Shaders\Desaturate\DesaturateEffect.cs" />
      <Compile Include="Assets\Rocks and Boulders 2\Shaders\RotateGameObject.cs" />

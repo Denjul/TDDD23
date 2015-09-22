@@ -1,176 +1,140 @@
 Base path: C:/Program Files/Unity/Editor/Data
-Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-8352
+Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-39848
 Cmd: getPlatforms
 Cmd: preprocess
-  insize=9628 outsize=2293 ok=1
+  insize=10014 outsize=2392 ok=1
 Cmd: preprocess
-  insize=11084 outsize=718 ok=1
+  insize=11431 outsize=759 ok=1
 Cmd: preprocess
-  insize=4203 outsize=523 ok=1
+  insize=4367 outsize=551 ok=1
 Cmd: preprocess
-  insize=1685 outsize=352 ok=1
+  insize=1759 outsize=370 ok=1
 Cmd: preprocess
-  insize=589 outsize=1140 ok=1
+  insize=620 outsize=1156 ok=1
 Cmd: preprocess
-  insize=919 outsize=355 ok=1
+  insize=974 outsize=373 ok=1
 Cmd: preprocess
-  insize=1006 outsize=316 ok=1
+  insize=1064 outsize=336 ok=1
 Cmd: preprocess
-  insize=2505 outsize=3292 ok=1
+  insize=2595 outsize=3321 ok=1
 Cmd: preprocess
-  insize=492 outsize=1536 ok=1
+  insize=522 outsize=1550 ok=1
 Cmd: preprocess
-  insize=1989 outsize=486 ok=1
+  insize=2058 outsize=509 ok=1
 Cmd: preprocess
-  insize=1284 outsize=412 ok=1
+  insize=1352 outsize=432 ok=1
 Cmd: preprocess
-  insize=1546 outsize=457 ok=1
+  insize=1631 outsize=481 ok=1
 Cmd: preprocess
-  insize=1108 outsize=458 ok=1
+  insize=1153 outsize=480 ok=1
 Cmd: preprocess
-  insize=1183 outsize=296 ok=1
+  insize=1243 outsize=312 ok=1
 Cmd: preprocess
-  insize=1116 outsize=407 ok=1
+  insize=1175 outsize=428 ok=1
 Cmd: preprocess
   insize=6870 outsize=844 ok=1
 Cmd: preprocess
-  insize=1192 outsize=314 ok=1
+  insize=1256 outsize=333 ok=1
 Cmd: preprocess
-  insize=2671 outsize=773 ok=1
+  insize=2789 outsize=809 ok=1
 Cmd: preprocess
-  insize=968 outsize=305 ok=1
+  insize=1027 outsize=322 ok=1
 Cmd: preprocess
-  insize=1377 outsize=384 ok=1
+  insize=1443 outsize=406 ok=1
 Cmd: preprocess
-  insize=1437 outsize=347 ok=1
+  insize=1519 outsize=370 ok=1
 Cmd: preprocess
-  insize=1709 outsize=728 ok=1
+  insize=1761 outsize=749 ok=1
 Cmd: preprocess
-  insize=1403 outsize=346 ok=1
+  insize=1465 outsize=363 ok=1
 Cmd: preprocess
-  insize=1116 outsize=325 ok=1
+  insize=1177 outsize=342 ok=1
 Cmd: preprocess
-  insize=2165 outsize=644 ok=1
+  insize=2256 outsize=672 ok=1
 Cmd: preprocess
-  insize=965 outsize=271 ok=1
+  insize=1019 outsize=289 ok=1
 Cmd: preprocess
-  insize=790 outsize=320 ok=1
+  insize=829 outsize=338 ok=1
 Cmd: preprocess
-  insize=32615 outsize=273 ok=1
+  insize=33443 outsize=288 ok=1
 Cmd: preprocess
-  insize=1216 outsize=260 ok=1
+  insize=1282 outsize=279 ok=1
 Cmd: preprocess
-  insize=3375 outsize=706 ok=1
+  insize=3524 outsize=748 ok=1
 Cmd: preprocess
-  insize=1038 outsize=358 ok=1
+  insize=1097 outsize=378 ok=1
 Cmd: preprocess
-  insize=2494 outsize=780 ok=1
+  insize=2615 outsize=820 ok=1
 Cmd: preprocess
-  insize=7424 outsize=1104 ok=1
+  insize=7763 outsize=1160 ok=1
 Cmd: preprocess
-  insize=977 outsize=438 ok=1
+  insize=1034 outsize=465 ok=1
 Cmd: preprocess
-  insize=13919 outsize=2626 ok=1
+  insize=14440 outsize=2764 ok=1
 Cmd: preprocess
-  insize=1950 outsize=490 ok=1
+  insize=2048 outsize=516 ok=1
 Cmd: preprocess
-  insize=1604 outsize=301 ok=1
+  insize=1674 outsize=320 ok=1
 Cmd: preprocess
-  insize=24592 outsize=3218 ok=1
+  insize=25498 outsize=3391 ok=1
 Cmd: preprocess
-  insize=2633 outsize=351 ok=1
+  insize=2740 outsize=374 ok=1
 Cmd: preprocess
-  error: 1 plat 18 at (84): Both vertex and fragment programs must be present in a CGPROGRAM. Excluding it from compilation.
-  insize=2292 outsize=1220 ok=1
+  error: 1 plat 16 at (84): Both vertex and fragment programs must be present in a CGPROGRAM. Excluding it from compilation.
+  insize=2397 outsize=1269 ok=1
 Cmd: preprocess
-  insize=1737 outsize=297 ok=1
+  insize=1823 outsize=317 ok=1
 Cmd: preprocess
-  insize=1026 outsize=351 ok=1
+  insize=1088 outsize=373 ok=1
 Cmd: preprocess
-  insize=738 outsize=267 ok=1
+  insize=777 outsize=284 ok=1
 Cmd: preprocess
-  insize=5809 outsize=873 ok=1
+  insize=6056 outsize=913 ok=1
 Cmd: preprocess
-  insize=586 outsize=360 ok=1
+  insize=622 outsize=382 ok=1
 Cmd: preprocess
-  insize=32625 outsize=273 ok=1
+  insize=33452 outsize=288 ok=1
 Cmd: preprocess
-  insize=5109 outsize=1741 ok=1
+  insize=5279 outsize=1789 ok=1
 Cmd: preprocess
-  insize=6780 outsize=255 ok=1
+  insize=6968 outsize=271 ok=1
 Cmd: preprocess
-  insize=4425 outsize=555 ok=1
+  insize=4577 outsize=586 ok=1
 Cmd: preprocess
-  insize=4869 outsize=1093 ok=1
+  insize=5103 outsize=1147 ok=1
 Cmd: preprocess
-  insize=1668 outsize=1886 ok=1
+  insize=1725 outsize=1906 ok=1
 Cmd: preprocess
-  insize=778 outsize=304 ok=1
+  insize=833 outsize=323 ok=1
 Cmd: preprocess
-  insize=721 outsize=317 ok=1
+  insize=758 outsize=335 ok=1
 Cmd: preprocess
   insize=4076 outsize=684 ok=1
 Cmd: preprocess
-  insize=883 outsize=301 ok=1
+  insize=936 outsize=319 ok=1
 Cmd: preprocess
-  insize=1339 outsize=296 ok=1
+  insize=1406 outsize=315 ok=1
 Cmd: preprocess
-  insize=2143 outsize=982 ok=1
+  insize=2266 outsize=1038 ok=1
 Cmd: preprocess
-  insize=1080 outsize=489 ok=1
+  insize=1136 outsize=512 ok=1
 Cmd: preprocess
-  insize=1213 outsize=389 ok=1
+  insize=1285 outsize=411 ok=1
 Cmd: preprocess
-  insize=574 outsize=259 ok=1
+  insize=616 outsize=277 ok=1
 Cmd: preprocess
-  insize=724 outsize=315 ok=1
+  insize=773 outsize=337 ok=1
 Cmd: preprocess
-  insize=1727 outsize=682 ok=1
+  insize=1801 outsize=713 ok=1
 Cmd: compileSnippet
-  api=4 type=0 insize=977 outsize=4703 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF _EMISSION _NORMALMAP _SPECGLOSSMAP pd= ok=1
+  api=4 type=0 insize=938 outsize=4727 kw=POINT SHADOWS_OFF ok=1
 Cmd: compileSnippet
-  api=4 type=1 insize=977 outsize=11495 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF _EMISSION _NORMALMAP _SPECGLOSSMAP pd= ok=1
+  api=4 type=1 insize=938 outsize=5962 kw=POINT SHADOWS_OFF ok=1
 Cmd: compileSnippet
-  api=4 type=0 insize=934 outsize=4101 kw=DIRECTIONAL SHADOWS_OFF _NORMALMAP _SPECGLOSSMAP pd= ok=1
+  api=4 type=0 insize=977 outsize=4995 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF _EMISSION _NORMALMAP _SPECGLOSSMAP ok=1
 Cmd: compileSnippet
-  api=4 type=1 insize=934 outsize=6157 kw=DIRECTIONAL SHADOWS_OFF _NORMALMAP _SPECGLOSSMAP pd= ok=1
+  api=4 type=1 insize=977 outsize=11804 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF _EMISSION _NORMALMAP _SPECGLOSSMAP ok=1
 Cmd: compileSnippet
-  api=4 type=0 insize=7806 outsize=4946 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF pd= ok=1
+  api=4 type=0 insize=7636 outsize=5271 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1
 Cmd: compileSnippet
-  api=4 type=1 insize=7806 outsize=2671 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF pd= ok=1
-Cmd: compileSnippet
-  api=4 type=0 insize=5024 outsize=4020 kw=DIRECTIONAL pd= ok=1
-Cmd: compileSnippet
-  api=4 type=1 insize=5024 outsize=1956 kw=DIRECTIONAL pd= ok=1
-Cmd: compileSnippet
-  api=4 type=0 insize=7666 outsize=4784 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF pd= ok=1
-Cmd: compileSnippet
-  api=4 type=1 insize=7666 outsize=3476 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF pd= ok=1
-Cmd: compileSnippet
-  api=4 type=0 insize=5061 outsize=4020 kw=DIRECTIONAL pd= ok=1
-Cmd: compileSnippet
-  api=4 type=1 insize=5061 outsize=2907 kw=DIRECTIONAL pd= ok=1
-Cmd: compileSnippet
-  api=4 type=0 insize=982 outsize=4703 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF _NORMALMAP pd= ok=1
-Cmd: compileSnippet
-  api=4 type=1 insize=982 outsize=11406 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF _NORMALMAP pd= ok=1
-Cmd: compileSnippet
-  api=4 type=0 insize=938 outsize=4101 kw=DIRECTIONAL SHADOWS_OFF _NORMALMAP pd= ok=1
-Cmd: compileSnippet
-  api=4 type=1 insize=938 outsize=6214 kw=DIRECTIONAL SHADOWS_OFF _NORMALMAP pd= ok=1
-Cmd: compileSnippet
-  api=4 type=0 insize=751 outsize=3776 kw=SHADOWS_DEPTH _ALPHABLEND_ON pd= ok=1
-Cmd: compileSnippet
-  api=4 type=1 insize=751 outsize=1233 kw=SHADOWS_DEPTH _ALPHABLEND_ON pd= ok=1
-Cmd: compileSnippet
-  api=4 type=0 insize=977 outsize=4703 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF _ALPHABLEND_ON _NORMALMAP pd= ok=1
-Cmd: compileSnippet
-  api=4 type=1 insize=977 outsize=11316 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF _ALPHABLEND_ON _NORMALMAP pd= ok=1
-Cmd: compileSnippet
-  api=4 type=0 insize=934 outsize=4101 kw=DIRECTIONAL SHADOWS_OFF _ALPHABLEND_ON _NORMALMAP pd= ok=1
-Cmd: compileSnippet
-  api=4 type=1 insize=934 outsize=6165 kw=DIRECTIONAL SHADOWS_OFF _ALPHABLEND_ON _NORMALMAP pd= ok=1
-Cmd: compileSnippet
-  api=4 type=0 insize=934 outsize=4101 kw=DIRECTIONAL SHADOWS_OFF pd= ok=1
-Cmd: compileSnippet
-  api=4 type=1 insize=934 outsize=5401 kw=DIRECTIONAL SHADOWS_OFF pd= ok=1
+  api=4 type=1 insize=7636 outsize=2988 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF ok=1

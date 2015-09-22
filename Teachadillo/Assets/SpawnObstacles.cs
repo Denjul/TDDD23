@@ -3,9 +3,10 @@ using System.Collections;
 
 public class SpawnObstacles : MonoBehaviour {
 	public GameObject prefab1;
-	public GameObject prefab2;
+	public GameObject wallwithportals;
 	public GameObject prefab3;
 	public float obsspeed;
+	public int nrObstacle = 0;
 	float timeElapsed = 0;
 	float obsh = 0;
 	float randomspawn = (float)0;
@@ -20,7 +21,18 @@ public class SpawnObstacles : MonoBehaviour {
 		if (!GameObject.Find ("kitten").GetComponent<PlayerControl> ().hurt) {
 			timeElapsed += Time.deltaTime;
 			GameObject temp;
-			if ((int)timeElapsed > randomspawn) {
+			if (nrObstacle > 8){
+				nrObstacle= 0;
+				obsh = (float)0.5;
+				temp = (GameObject)Instantiate (wallwithportals);
+				Vector3 pos = temp.transform.position;
+				temp.transform.position = new Vector3 (0, pos.y + obsh, 35);
+				//temp.transform.rotation = new Vector3 (0,0,90);
+				//temp.transform.localScale = new Vector3 (3,5,0.2);
+
+
+			}else if ((int)timeElapsed > randomspawn) {
+				nrObstacle++;
 				timeElapsed = (float)0;
 				randomspawn = (float)Random.Range (1, 3);
 				obsh = (float)0.5;
