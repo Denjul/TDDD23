@@ -50,6 +50,9 @@
      <Compile Include="Assets\GroundControl.cs" />
      <Compile Include="Assets\MoveObject.cs" />
      <Compile Include="Assets\PlayerControl.cs" />
+     <Compile Include="Assets\ProjectName\Scripts\CreateMap.cs" />
+     <Compile Include="Assets\ProjectName\Scripts\Menu.cs" />
+     <Compile Include="Assets\ProjectName\Scripts\MoveGround.cs" />
      <Compile Include="Assets\Rocks and Boulders 2\Shaders\Desaturate\DesaturateEffect.cs" />
      <Compile Include="Assets\Rocks and Boulders 2\Shaders\RotateGameObject.cs" />
      <Compile Include="Assets\Rocks and Boulders 2\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
@@ -213,14 +216,14 @@
  <Reference Include="UnityEngine.Analytics">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
- <Reference Include="MKGlowSystemSceneView">
- <HintPath>C:/Users/Dennis/Documents/GitHub/TDDD23/Teachadillo/Assets/_MK/_MKGlowSystem/_Internal/MKGlowSystemSceneView.dll</HintPath>
+ <Reference Include="MKGlowSystem">
+ <HintPath>C:/Users/Dennis/Documents/GitHub/TDDD23/Teachadillo/Assets/_MK/_MKGlowSystem/_Internal/MKGlowSystem.dll</HintPath>
  </Reference>
  <Reference Include="MKGlowSystemHelpWindow">
  <HintPath>C:/Users/Dennis/Documents/GitHub/TDDD23/Teachadillo/Assets/_MK/_MKGlowSystem/_Internal/MKGlowSystemHelpWindow.dll</HintPath>
  </Reference>
- <Reference Include="MKGlowSystem">
- <HintPath>C:/Users/Dennis/Documents/GitHub/TDDD23/Teachadillo/Assets/_MK/_MKGlowSystem/_Internal/MKGlowSystem.dll</HintPath>
+ <Reference Include="MKGlowSystemSceneView">
+ <HintPath>C:/Users/Dennis/Documents/GitHub/TDDD23/Teachadillo/Assets/_MK/_MKGlowSystem/_Internal/MKGlowSystemSceneView.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
