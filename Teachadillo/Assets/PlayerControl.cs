@@ -17,6 +17,11 @@ public class PlayerControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//if (controller.detectCollisions) {
+			//GetComponent<Animation>().Stop("Run");
+			//GetComponent<Animation>().Play("Ithcing");
+		//}
+
 		if (controller.isGrounded) {
 			GetComponent<Animation>().Play("Run");
 			moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, 0);  //get keyboard input to move in the horizontal direction
