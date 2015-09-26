@@ -17,10 +17,6 @@ public class PlayerControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//if (controller.detectCollisions) {
-			//GetComponent<Animation>().Stop("Run");
-			//GetComponent<Animation>().Play("Ithcing");
-		//}
 
 		if (controller.isGrounded) {
 			GetComponent<Animation>().Play("Run");
@@ -41,5 +37,13 @@ public class PlayerControl : MonoBehaviour {
 		if (controller.isGrounded) {
 			isGrounded = true;
 		}
+	}
+
+	void OnTriggerEnter(Collider coll){
+		if (coll.gameObject.name == "Rock1E(Clone)") {
+			GetComponent<Animation>().Stop("Run");
+			GetComponent<Animation>().Play("Ithcing");
+		}
+		Destroy(coll.gameObject);
 	}
 }
