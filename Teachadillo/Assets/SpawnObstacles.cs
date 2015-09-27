@@ -17,15 +17,17 @@ public class SpawnObstacles : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		timeElapsed += Time.deltaTime;
-		GameObject temp;
-		if ((int)timeElapsed > randomspawn) {
-			timeElapsed = (float)0;
-			randomspawn = (float)Random.Range(1,3);
-			obsh = (float)0.5;
-			temp = (GameObject)Instantiate(prefab1);
-			Vector3 pos = temp.transform.position;
-			temp.transform.position = new Vector3(Random.Range(-4, 6)-(float)0.3, pos.y + obsh , 35);
+		if (!GameObject.Find ("kitten").GetComponent<PlayerControl> ().hurt) {
+			timeElapsed += Time.deltaTime;
+			GameObject temp;
+			if ((int)timeElapsed > randomspawn) {
+				timeElapsed = (float)0;
+				randomspawn = (float)Random.Range (1, 3);
+				obsh = (float)0.5;
+				temp = (GameObject)Instantiate (prefab1);
+				Vector3 pos = temp.transform.position;
+				temp.transform.position = new Vector3 (Random.Range (-4, 6) - (float)0.3, pos.y + obsh, 35);
+			}
 		}
 		/*for (int k = 0; k < obstacle.Length && obstacle[k] != null; k++) {
 			obstacle[k].transform.position = new Vector3(obstacle[k].transform.position.x,obstacle[k].transform.position.y,obstacle[k].transform.position.z - obsspeed);
