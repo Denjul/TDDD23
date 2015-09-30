@@ -6,7 +6,7 @@ public class PlayerControl : MonoBehaviour {
 
 	CharacterController controller;
 	public bool isGrounded = false;
-	public bool first = true;
+	private float counter = .0f;
 	public float speed = 10.0f;
 	public float jumpSpeed = 6.0f;
 	public float gravity = 30.0f;
@@ -19,6 +19,8 @@ public class PlayerControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		counter += Time.deltaTime;
 		if (controller.isGrounded) {
 			run();
 		}
@@ -26,12 +28,12 @@ public class PlayerControl : MonoBehaviour {
 		if (Input.GetButton ("Jump") && isGrounded) {
 			jump();
 		}
-
-		fall ();
+		if (counter > 7) {
+			fall ();
+		}
 
 		if (controller.isGrounded) {
 			isGrounded = true;
-			first = false;
 		}
 	}
 

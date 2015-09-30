@@ -3,8 +3,8 @@ using System.Collections;
 
 public class MoveGround : MonoBehaviour {
 
-	public float speed = -.2f;
-	public bool first = true;
+	public float speed = -10;
+	public bool maploaded = false;
 
 	// Use this for initialization
 	void Start () {
@@ -13,19 +13,9 @@ public class MoveGround : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (GameObject.Find("kitten").GetComponent<PlayerControl>().first) {
-			if(first){
-				if (transform.position.z <= -38.5) {
-					first = false;
-					speed = .0f;
-				}
-			}
-		} 
-		else {
-			if (transform.position.z <= -38.5) {
-				Destroy (this.gameObject);
-			}
+		if (transform.position.z <= -38.5) {
+			Destroy (this.gameObject);
 		}
-		transform.Translate (0, 0, -Time.deltaTime*10);
+		transform.Translate (0, 0, Time.deltaTime*speed);
 	}
 }
