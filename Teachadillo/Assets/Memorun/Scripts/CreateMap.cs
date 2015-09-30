@@ -168,18 +168,24 @@ public class CreateMap : MonoBehaviour {
 	}
 		
 	void CreateRow(){
-		GameObject[] temp = new GameObject[]{(GameObject)Instantiate (Ground),(GameObject)Instantiate (Ground),(GameObject)Instantiate (Ground),(GameObject)Instantiate (Ground)};
-		check = temp[0];
-		for(int i = 0; i < temp.Length; i++){
-			temp[i].transform.position = new Vector3 (i*2, 0, 40);
-		}
+		GameObject[] temp = new GameObject[]{(GameObject)Instantiate(Ground),(GameObject)Instantiate(Ground),(GameObject)Instantiate(Ground),(GameObject)Instantiate(Ground)};
 		if (obs) {
 			int obstcale = Random.Range (0,level3.Length);
 			int[] i = level3[obstcale];
 			for(int j = 0; j<i.Length; j++){
+				if(i[j] != 0){
+					temp[j] = (GameObject)Instantiate(Obstacle);
+				}
+				else{
+					temp[j] = (GameObject)Instantiate(Ground);
+				}
 				temp [j].transform.position = new Vector3 (temp[j].transform.position.x,i[j] , 40);
 			}
 			obs = false;
+		}
+		check = temp[0];
+		for(int i = 0; i < temp.Length; i++){
+			temp[i].transform.position = new Vector3 (i*2, temp[i].transform.position.y, 40);
 		}
 	}
 }

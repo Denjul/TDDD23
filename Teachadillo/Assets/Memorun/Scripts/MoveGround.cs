@@ -26,6 +26,6 @@ public class MoveGround : MonoBehaviour {
 				Destroy (this.gameObject);
 			}
 		}
-		transform.Translate (0, 0, speed);
+		transform.Translate (0, 0, -Time.deltaTime*10);
 	}
 }
