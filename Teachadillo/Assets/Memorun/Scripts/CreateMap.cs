@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class CreateMap : MonoBehaviour {
 	
@@ -10,6 +11,7 @@ public class CreateMap : MonoBehaviour {
 	public float groundrate = .18f;
 	private float counter = .0f;
 	private float counter2 = .0f;
+	private float counter3 = .0f;
 	private bool obs = false;
 	/*WALLS*/
 	
@@ -64,6 +66,15 @@ public class CreateMap : MonoBehaviour {
 	public int mode = 1;
 	private int counterOfGround = 0;
 	public int nrOfGround = 4;
+	
+	//Case 4
+	private bool cube = true;
+	public int nrOfCubesCase4 = 2;
+	int[] lastCube = new int[]{-1,-1,0,-1};
+	
+	//Case 5
+	int[] doubleCube = new int[]{-1,-1,0,0};
+	private int counterDoubleCubes = 0;
 	
 	
 	/*Levels*/
@@ -187,10 +198,13 @@ public class CreateMap : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		counter2 += Time.deltaTime;
-		if (counter2 < 7) {
-			CreateGroundRow();
-		} 
-		else {
+		counter3 += Time.deltaTime;
+		if ((counter2 < 7)) {
+			if(counter3 >= groundrate){
+				CreateGroundRow();
+				counter3 = 0;
+			}
+		} else {
 			counter += Time.deltaTime;
 			if (counter >= groundrate) {
 				switch (mode)
@@ -226,6 +240,86 @@ public class CreateMap : MonoBehaviour {
 					counterOfGround = 0;
 					counter = 0;
 					break;
+				case 4:
+					if (cube){
+						if(nrOfCubesCase4>=1){
+							nrOfCubesCase4 = 0;
+							if (Enumerable.SequenceEqual(lastCube, hole_0111)){
+								print("hej1");
+								lastCube[0] = -1;
+								lastCube[1] = 0;
+							}else if(Enumerable.SequenceEqual(lastCube, hole_1110)){
+								print("hej2");
+								lastCube[3] = -1;
+								lastCube[2] = 0;
+							}else{
+								print("hej3");	
+								for(int i = 1; i <3; i++){
+									if (lastCube[i] == 0){
+										print("hej4");
+										lastCube[i] = -1;
+										int l = i+Random.Range(0,3) - 1;
+										//print(l);
+										lastCube[l]= 0;
+									}
+								}
+							}
+						}else{
+							nrOfCubesCase4++;
+							cube = false;
+						}
+						
+						CreateRow(lastCube);
+					}else{
+						CreateRow(hole_1111);
+						cube = true;
+					}
+					counter = 0;
+					
+					
+					break;
+				case 5:
+					counterDoubleCubes++;
+					switch (counterDoubleCubes)
+					{
+					case 1:
+						CreateRow(hole_1100);
+						break;
+					case 2:
+						CreateRow(hole_1001);
+						break;
+					case 3:
+						CreateRow(hole_0011);
+						break;
+					case 4:
+						CreateRow(hole_1001);
+						counterDoubleCubes = 0;
+						break;
+					default:
+						
+						break;
+						
+					}
+					counter = 0;
+					
+					/*	if (nrOfDoubleCubes >= 2){
+						if((Enumerable.SequenceEqual(lastdoubleCube, hole_0011)) || 
+						   (Enumerable.SequenceEqual(lastdoubleCube, hole_1100))){
+							lastdoubleCube = new int[]{-1,0,0,-1};
+						}else{
+							if(Random.Range(0,2) == 1){
+								lastdoubleCube = new int[]{0,0,-1,-1};
+							}else{
+								lastdoubleCube = new int[]{-1,-1,0,0};
+							}
+						}
+						nrOfDoubleCubes = 0;
+					}else{
+						nrOfDoubleCubes++;
+					}
+					CreateRow(lastdoubleCube);
+					counter = 0;*/
+					break;
 				default:
 					
 					break;
@@ -236,14 +330,15 @@ public class CreateMap : MonoBehaviour {
 	
 	void CreateRow(int[] obstacle){
 		GameObject[] temp = new GameObject[4];
-		for(int j = 0; j<obstacle.Length; j++){
-			if(obstacle[j] != 0){
-				temp[j] = (GameObject)Instantiate(Obstacle);
+		for (int j = 0; j<obstacle.Length; j++) {
+			if (obstacle[j] != -1) {
+				if (obstacle [j] != 0) {
+					temp [j] = (GameObject)Instantiate (Obstacle);
+				} else {
+					temp [j] = (GameObject)Instantiate (Ground);
+				}
+				temp [j].transform.position = new Vector3 (j * 2, obstacle [j], 40);
 			}
-			else{
-				temp[j] = (GameObject)Instantiate(Ground);
-			}
-			temp [j].transform.position = new Vector3 (j*2,obstacle[j] , 40);
 		}
 	}
 	/*
