@@ -6,6 +6,8 @@ public class CreateMap : MonoBehaviour {
 	
 	public GameObject Ground;
 	public GameObject Obstacle;
+	public GameObject[] Portals = new GameObject[4];
+	public GameObject[] Gems = new GameObject[4];
 	public int[] spawnrate = new int[2]; 
 	private GameObject check;
 	public float groundrate = .18f;
@@ -298,9 +300,9 @@ public class CreateMap : MonoBehaviour {
 					default:
 						
 						break;
-						
 					}
-					counter = 0;
+					break;
+						
 					
 					/*	if (nrOfDoubleCubes >= 2){
 						if((Enumerable.SequenceEqual(lastdoubleCube, hole_0011)) || 
@@ -319,7 +321,20 @@ public class CreateMap : MonoBehaviour {
 					}
 					CreateRow(lastdoubleCube);
 					counter = 0;*/
-					break;
+
+					case 6:
+						if(counterOfGround > Random.Range(5,10)){
+							CreatePortals();
+							counterOfGround = 0;
+						}
+						else{
+							CreateGroundRow();
+							counterOfGround++;
+						}
+						counter = 0;
+						
+						break;
+						
 				default:
 					
 					break;
@@ -368,6 +383,13 @@ public class CreateMap : MonoBehaviour {
 		GameObject[] temp = new GameObject[]{(GameObject)Instantiate(Ground),(GameObject)Instantiate(Ground),(GameObject)Instantiate(Ground),(GameObject)Instantiate(Ground)};
 		for(int i = 0; i < temp.Length; i++){
 			temp[i].transform.position = new Vector3 (i*2, temp[i].transform.position.y, 40);
+		}
+	}
+
+	void CreatePortals(){
+		GameObject[] temp = new GameObject[]{(GameObject)Instantiate(Portals[0]),(GameObject)Instantiate(Portals[1]),(GameObject)Instantiate(Portals[2]),(GameObject)Instantiate(Portals[3])};
+		for(int i = 0; i < temp.Length; i++){
+			temp[i].transform.position = new Vector3 (temp[i].transform.position.x, temp[i].transform.position.y, 40);
 		}
 	}
 	
