@@ -6,8 +6,9 @@ public class PlayerControl : MonoBehaviour {
 
 	CharacterController controller;
 	public bool isGrounded = false;
+	public int PAM = 0;
 	private Queue gems = new Queue();
-	private Queue tempgems = new Queue();
+	private Queue portals = new Queue();
 	private float counter = .0f;
 	public float speed = 10.0f;
 	public float jumpSpeed = 6.0f;
@@ -59,42 +60,47 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void gpcheck(Collider coll){ //Gem and Portal check
-		if (coll.gameObject.name == "GemRed") {
+		if (coll.gameObject.name.Equals("GemRed")) {
 			gems.Enqueue(1);
-			tempgems = gems;
+			portals = gems;
+			print("Red");
+			PAM = gems.Count;
 		}
-		if (coll.gameObject.name == "GemGreen") {
+		if (coll.gameObject.name.Equals("GemGreen")) {
 			gems.Enqueue(2);
-			tempgems = gems;
+			portals = gems;
+			PAM = gems.Count;
 		}
-		if (coll.gameObject.name == "GemBlue") {
+		if (coll.gameObject.name.Equals("GemBlue")) {
 			gems.Enqueue(3);
-			tempgems = gems;
+			portals = gems;
+			PAM = gems.Count;
 		}
-		if (coll.gameObject.name == "GemYellow") {
+		if (coll.gameObject.name.Equals("GemYellow")) {
 			gems.Enqueue(4);
-			tempgems = gems;
+			portals = gems;
+			PAM = gems.Count;
 		}
-		if (coll.gameObject.name == "PortalRed") {
-			int temp = (int)tempgems.Dequeue();
+		if (coll.gameObject.name.Equals("PortalRed")) {
+			int temp = (int)portals.Dequeue();
 			if (temp == 1){
 				print("Red");
 			}
 		}
-		if (coll.gameObject.name == "PortalGreen") {
-			int temp = (int)tempgems.Dequeue();
+		if (coll.gameObject.name.Equals("PortalGreen")) {
+			int temp = (int)portals.Dequeue();
 			if (temp == 1){
 				print("Green");
 			}
 		}
-		if (coll.gameObject.name == "PortalBlue") {
-			int temp = (int)tempgems.Dequeue();
+		if (coll.gameObject.name.Equals("PortalBlue")) {
+			int temp = (int)portals.Dequeue();
 			if (temp == 1){
 				print("Blue");
 			}
 		}
-		if (coll.gameObject.name == "PortalYellow") {
-			int temp = (int)tempgems.Dequeue();
+		if (coll.gameObject.name.Equals("PortalYellow")) {
+			int temp = (int)portals.Dequeue();
 			if (temp == 1){
 				print("Yellow");
 			}

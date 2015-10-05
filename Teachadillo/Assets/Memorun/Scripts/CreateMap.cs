@@ -14,6 +14,8 @@ public class CreateMap : MonoBehaviour {
 	private float counter = .0f;
 	private float counter2 = .0f;
 	private float counter3 = .0f;
+	private int portalscount = 0;
+	private bool firstgem = true;
 	private bool obs = false;
 	/*WALLS*/
 	
@@ -301,36 +303,26 @@ public class CreateMap : MonoBehaviour {
 						
 						break;
 					}
-					break;
-						
-					
-					/*	if (nrOfDoubleCubes >= 2){
-						if((Enumerable.SequenceEqual(lastdoubleCube, hole_0011)) || 
-						   (Enumerable.SequenceEqual(lastdoubleCube, hole_1100))){
-							lastdoubleCube = new int[]{-1,0,0,-1};
-						}else{
-							if(Random.Range(0,2) == 1){
-								lastdoubleCube = new int[]{0,0,-1,-1};
-							}else{
-								lastdoubleCube = new int[]{-1,-1,0,0};
-							}
-						}
-						nrOfDoubleCubes = 0;
-					}else{
-						nrOfDoubleCubes++;
-					}
-					CreateRow(lastdoubleCube);
-					counter = 0;*/
+					break;						
 
 					case 6:
-						if(counterOfGround > Random.Range(5,10)){
+					if(portalscount <= 0 && !firstgem && GameObject.Find("kitten").GetComponent<PlayerControl>().PAM != 0){
+							CreateGems();
+							portalscount = GameObject.Find("kitten").GetComponent<PlayerControl>().PAM;
+						}
+						else if(firstgem){
+							CreateGems();
+							firstgem = false;
+						}
+						else if(counterOfGround > Random.Range(8,18)){
 							CreatePortals();
 							counterOfGround = 0;
+							portalscount--;
 						}
 						else{
-							CreateGroundRow();
 							counterOfGround++;
 						}
+						CreateGroundRow();
 						counter = 0;
 						
 						break;
@@ -356,28 +348,6 @@ public class CreateMap : MonoBehaviour {
 			}
 		}
 	}
-	/*
-	void CreateRow(int[] i){
-		GameObject[] temp = new GameObject[]{(GameObject)Instantiate(Ground),(GameObject)Instantiate(Ground),(GameObject)Instantiate(Ground),(GameObject)Instantiate(Ground)};
-		if (obs) {
-			int obstcale = Random.Range (0,level3.Length);
-			int[] i = level3[obstcale];
-			for(int j = 0; j<i.Length; j++){
-				if(i[j] != 0){
-					temp[j] = (GameObject)Instantiate(Obstacle);
-				}
-				else{
-					temp[j] = (GameObject)Instantiate(Ground);
-				}
-				temp [j].transform.position = new Vector3 (temp[j].transform.position.x,i[j] , 40);
-			}
-			obs = false;
-		}
-		check = temp[0];
-		for(int i = 0; i < temp.Length; i++){
-			temp[i].transform.position = new Vector3 (i*2, temp[i].transform.position.y, 40);
-		}
-	}*/
 	
 	void CreateGroundRow(){
 		GameObject[] temp = new GameObject[]{(GameObject)Instantiate(Ground),(GameObject)Instantiate(Ground),(GameObject)Instantiate(Ground),(GameObject)Instantiate(Ground)};
@@ -389,7 +359,14 @@ public class CreateMap : MonoBehaviour {
 	void CreatePortals(){
 		GameObject[] temp = new GameObject[]{(GameObject)Instantiate(Portals[0]),(GameObject)Instantiate(Portals[1]),(GameObject)Instantiate(Portals[2]),(GameObject)Instantiate(Portals[3])};
 		for(int i = 0; i < temp.Length; i++){
-			temp[i].transform.position = new Vector3 (temp[i].transform.position.x, temp[i].transform.position.y, 40);
+			temp[i].transform.position = new Vector3 (i*2, temp[i].transform.position.y, 40);
+		}
+	}
+
+	void CreateGems(){
+		GameObject[] temp = new GameObject[]{(GameObject)Instantiate(Gems[0]),(GameObject)Instantiate(Gems[1]),(GameObject)Instantiate(Gems[2]),(GameObject)Instantiate(Gems[3])};
+		for(int i = 0; i < temp.Length; i++){
+			temp[i].transform.position = new Vector3 (i*2, temp[i].transform.position.y, 40);
 		}
 	}
 	
