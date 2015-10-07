@@ -19,3 +19,5 @@ public class PortalControl : MonoBehaviour {
 		transform.Translate (0, Time.deltaTime*speed, 0);
 	}
 }
+
+//|| GameObject.Find ("kitten").GetComponent<PlayerControl>().GO

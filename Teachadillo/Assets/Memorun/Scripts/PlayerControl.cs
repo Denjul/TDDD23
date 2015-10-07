@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System;
 
@@ -7,8 +8,15 @@ public class PlayerControl : MonoBehaviour {
 	CharacterController controller;
 	public bool isGrounded = false;
 	public int PAM = 0;
+	private int score = 0; //Game Score
+	public Text scoretxt;
+	private int combo = 1; //Combo
+	public Text combotxt;
+	public Text GameOver;
+	public Text GOtext;
+	public bool GO = false;
 	private Queue gems = new Queue();
-	private Queue portals = new Queue();
+	public Queue portals;
 	private float counter = .0f;
 	public float speed = 10.0f;
 	public float jumpSpeed = 6.0f;
@@ -18,20 +26,31 @@ public class PlayerControl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		controller = GetComponent<CharacterController>();
+		GameOver.text = "";
+		GOtext.text = "";
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+		GameOfLife ();
+		setScore ();
 		counter += Time.deltaTime;
 		if (controller.isGrounded) {
 			run();
 		}
 
 		if (Input.GetButton ("Jump") && isGrounded) {
-			jump();
+			if(GameOver.text.Equals("GAME OVER!")){
+				GameOver.text = "";
+				print("RESTART");
+				Application.LoadLevel(Application.loadedLevel);
+				GO = false;
+			}
+			else{
+				jump();
+			}
 		}
-		if (counter > 7) {
+		if (counter > 14) {
 			fall ();
 		}
 
@@ -47,6 +66,21 @@ public class PlayerControl : MonoBehaviour {
 		moveDirection *= speed;  //increase the speed of the movement by the factor "speed" 
 	}
 
+	void setScore(){
+		int temp = combo;
+		if (combo > 4) {
+			temp = 4;
+		}
+		if (gems.Count > 0) {
+			temp = temp * gems.Count;
+		} else {
+			temp = temp * 1;
+		}
+		score = score + temp;
+		scoretxt.text = "Score: " + score.ToString ();
+		combotxt.text = "Combo: " + combo.ToString();
+	}
+
 	void jump(){
 		isGrounded = false;
 		GetComponent<Animation> ().Stop ("Run");
@@ -59,52 +93,69 @@ public class PlayerControl : MonoBehaviour {
 		controller.Move (moveDirection * Time.deltaTime); 
 	}
 
+	void GameOfLife(){
+		float ypos = controller.transform.position.y;
+		bool waiting = true;
+		if (ypos < -1) {
+			scoretxt.text = "";
+			combotxt.text = "";
+			resetvalues();
+			//GameObject.Find("Audio Source").GetComponent<AudioSource>().Stop();
+			GO = true;
+			GameOver.text = "GAME OVER!";
+			GOtext.text = "Jump! to play again.\r\nPress escape to exit...";
+		}
+	}
+
+	void resetvalues(){
+		score = 0;
+		combo = 0;
+		counter = 0;
+		PAM = 0;
+		gems.Clear();
+	}
+
 	void gpcheck(Collider coll){ //Gem and Portal check
-		if (coll.gameObject.name.Equals("GemRed")) {
-			gems.Enqueue(1);
-			portals = gems;
-			print("Red");
-			PAM = gems.Count;
+		if (coll.gameObject.name.Equals("GemRed(Clone)")){
+			CalcGem(1);
 		}
-		if (coll.gameObject.name.Equals("GemGreen")) {
-			gems.Enqueue(2);
-			portals = gems;
-			PAM = gems.Count;
+		if (coll.gameObject.name.Equals("GemGreen(Clone)")) {
+			CalcGem(2);
 		}
-		if (coll.gameObject.name.Equals("GemBlue")) {
-			gems.Enqueue(3);
-			portals = gems;
-			PAM = gems.Count;
+		if (coll.gameObject.name.Equals("GemBlue(Clone)")) {
+			CalcGem(3);
 		}
-		if (coll.gameObject.name.Equals("GemYellow")) {
-			gems.Enqueue(4);
-			portals = gems;
-			PAM = gems.Count;
+		if (coll.gameObject.name.Equals("GemYellow(Clone)")) {
+			CalcGem(4);
 		}
-		if (coll.gameObject.name.Equals("PortalRed")) {
-			int temp = (int)portals.Dequeue();
-			if (temp == 1){
-				print("Red");
-			}
+		if (coll.gameObject.name.Equals("PortalRed(Clone)")) {
+			CalcCombo((int)portals.Dequeue(),1);
 		}
-		if (coll.gameObject.name.Equals("PortalGreen")) {
-			int temp = (int)portals.Dequeue();
-			if (temp == 1){
-				print("Green");
-			}
+		if (coll.gameObject.name.Equals("PortalGreen(Clone)")) {
+			CalcCombo((int)portals.Dequeue(),2);
 		}
-		if (coll.gameObject.name.Equals("PortalBlue")) {
-			int temp = (int)portals.Dequeue();
-			if (temp == 1){
-				print("Blue");
-			}
+		if (coll.gameObject.name.Equals("PortalBlue(Clone)")) {
+			CalcCombo((int)portals.Dequeue(),3);
 		}
-		if (coll.gameObject.name.Equals("PortalYellow")) {
-			int temp = (int)portals.Dequeue();
-			if (temp == 1){
-				print("Yellow");
-			}
+		if (coll.gameObject.name.Equals("PortalYellow(Clone)")) {
+			CalcCombo((int)portals.Dequeue(),4);
 		}
+	}
+
+	void CalcCombo(int temp, int cor){ //Combo counter
+		if (temp == cor){
+			combo++;
+		}
+		else{
+			combo = 1;
+		}
+		PAM--;
+	}
+
+	void CalcGem(int temp){ //Handle gem and portal que, also count amount of gems collected.
+		gems.Enqueue(temp);
+		portals = new Queue(gems);
+		PAM = portals.Count;
 	}
 
 
