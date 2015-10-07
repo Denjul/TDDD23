@@ -46,10 +46,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Memorun\Scripts\ColorNumber.cs" />
      <Compile Include="Assets\Memorun\Scripts\CreateMap.cs" />
+     <Compile Include="Assets\Memorun\Scripts\DestroyZone.cs" />
+     <Compile Include="Assets\Memorun\Scripts\EnviormentMove.cs" />
      <Compile Include="Assets\Memorun\Scripts\GemControl.cs" />
      <Compile Include="Assets\Memorun\Scripts\Menu.cs" />
      <Compile Include="Assets\Memorun\Scripts\MoveGround.cs" />
+     <Compile Include="Assets\Memorun\Scripts\MoveObstacle.cs" />
      <Compile Include="Assets\Memorun\Scripts\PlayerControl.cs" />
      <Compile Include="Assets\_MK\_MKGlowSystem\_Demo\Code\MK_DemoControl.cs" />
      <Compile Include="Assets\_MK\_MKGlowSystem\_Demo\Code\MK_RotateObject.cs" />

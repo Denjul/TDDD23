@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GemControl : MonoBehaviour {
-
+public class ColorNumber : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -11,10 +10,6 @@ public class GemControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
-
-	void OnTriggerEnter(Collider coll){
-		Destroy (this.gameObject);
+		GetComponent<TextMesh> ().text = "Color nr " + GameObject.Find ("kitten").GetComponent<PlayerControl> ().PAM;
 	}
 }

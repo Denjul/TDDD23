@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MoveGround : MonoBehaviour {
-
-	public float speed = -10;
-	public bool maploaded = false;
+public class MoveObstacle : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
 	
 	}
+
 	
 	// Update is called once per frame
 	void Update () {
@@ -17,7 +15,7 @@ public class MoveGround : MonoBehaviour {
 			Destroy (this.gameObject);
 		}*/
 		if (transform.position.y >= 0){
-		transform.Translate (-transform.up *10* Time.deltaTime);
+			transform.Translate (-transform.up *10* Time.deltaTime);
+		}
 	}
-}
 }

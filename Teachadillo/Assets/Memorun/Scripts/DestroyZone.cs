@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GemControl : MonoBehaviour {
-
+public class DestroyZone : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -13,8 +12,9 @@ public class GemControl : MonoBehaviour {
 	void Update () {
 	
 	}
-
 	void OnTriggerEnter(Collider coll){
-		Destroy (this.gameObject);
+		if (coll.gameObject.name.Equals("DestroyZone")){
+			Destroy (this.gameObject);
 	}
+}
 }
