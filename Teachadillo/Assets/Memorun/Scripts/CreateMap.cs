@@ -22,7 +22,7 @@ public class CreateMap : MonoBehaviour
 	private int mode = 1;
 	private int groundrowcounter = 0;
 	private float time = .0f;
-	
+	private GameObject[] lastRow = new GameObject[4];
 	private bool newMiddlelevel = true;
 	
 	
@@ -103,7 +103,7 @@ public class CreateMap : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		CreateGroundRow ();
+		lastRow = CreateGroundRow ();
 		/*Levels*/
 		level1 = new int[][] 
 		{
@@ -219,12 +219,17 @@ public class CreateMap : MonoBehaviour
 		//A starting phase that creates the ground when the kitten is in the air
 		if ((counter2 < 7)) {
 			if (counter3 >= groundrate) {
-				CreateGroundRow ();
+				lastRow = CreateGroundRow ();
+				counter3 = 0;
+				counter = counter2;
 			}
 		} else { // Now in the game loop
 			counter += Time.deltaTime;
 			//Checks if it is time to create a new row
 			if (counter >= groundrate) {
+				lastRow = CreateGroundRow();
+				counter = 0;
+				
 				switch (mode) {
 				case 1:
 					//choose color
@@ -235,7 +240,7 @@ public class CreateMap : MonoBehaviour
 						mode = 3;
 						groundrowcounter = 0;
 					}
-					CreateGroundRow ();
+					//CreateGroundRow ();
 					break;
 				case 2:
 					//Portal mode
@@ -250,7 +255,7 @@ public class CreateMap : MonoBehaviour
 							mode = 3;
 							groundrowcounter = 0;
 						}
-						CreateGroundRow ();
+						//CreateGroundRow ();
 					}
 					break;
 				case 3:
@@ -280,7 +285,7 @@ public class CreateMap : MonoBehaviour
 				int[] obstacle = level3 [i];
 				CreateRow (obstacle);
 			} else {
-				CreateGroundRow ();
+				//CreateGroundRow ();
 			}
 			break;
 		case 2:
@@ -292,7 +297,7 @@ public class CreateMap : MonoBehaviour
 				counterOfGround = 0;
 			} else {
 				counterOfGround++;
-				CreateGroundRow ();
+				//CreateGroundRow ();
 			}
 			break;
 		case 3:
@@ -417,6 +422,9 @@ public class CreateMap : MonoBehaviour
 				}
 			}
 			break;
+		case 7:
+		CreatePortals();
+			break;
 			
 			
 		default:
@@ -427,6 +435,23 @@ public class CreateMap : MonoBehaviour
 	}
 	
 	void CreateRow (int[] obstacle)
+	{
+		print ("CREATEROW");
+		for (int j = 0; j<obstacle.Length; j++) {
+			
+			if (obstacle [j] == -1) {
+				Destroy(lastRow[j]);
+			}else if (obstacle [j] == 1) {
+				float tempPos = lastRow[j].transform.position.z;
+				Destroy(lastRow[j]);
+				GameObject temp = (GameObject)Instantiate (Obstacle);
+				temp.transform.position = new Vector3 (j * 2, obstacle [j], tempPos);
+				
+			}
+		}
+	}
+	
+	/*void CreateRow (int[] obstacle)
 	{
 		GameObject[] temp = new GameObject[4];
 		for (int j = 0; j<obstacle.Length; j++) {
@@ -440,9 +465,9 @@ public class CreateMap : MonoBehaviour
 			}
 		}
 		counter = 0;
-	}
+	}*/
 	
-	void CreateGroundRow ()
+	public GameObject[] CreateGroundRow()
 	{
 		GameObject[] temp = new GameObject[] {
 			(GameObject)Instantiate (Ground),
@@ -453,8 +478,7 @@ public class CreateMap : MonoBehaviour
 		for (int i = 0; i < temp.Length; i++) {
 			temp [i].transform.position = new Vector3 (i * 2, temp [i].transform.position.y, 40);
 		}
-		counter = 0;
-		counter3 = 0;
+		return temp;
 		
 	}
 	
