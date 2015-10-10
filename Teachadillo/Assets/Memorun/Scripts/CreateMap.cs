@@ -10,8 +10,11 @@ public class CreateMap : MonoBehaviour
 	public GameObject[] Portals = new GameObject[4];
 	public GameObject[] Gems = new GameObject[4];
 	public GameObject SignGems;
+	public GameObject SignPortals;
+	public GameObject SignCoins;
+	public GameObject Coin;
 	public int[] spawnrate = new int[2];
-	public int obsMode = 1;
+	public int obsMode = 2;
 	private GameObject check;
 	public float groundrate = 70;
 	private float counter = .0f;
@@ -20,13 +23,15 @@ public class CreateMap : MonoBehaviour
 	private int portalscount = 0;
 	private bool firstgem = true;
 	private bool obs = false;
-	private int mode = 1;
+	private int mode = 2;
 	private int groundrowcounter = 0;
 	private float time = .0f;
 	private GameObject[] lastRow = new GameObject[4];
 	private bool newMiddlelevel = true;
 	private int zPos = -30;
 	private bool holes = false;
+	private int PAM = 0;
+	public int PAMinverted = 0;
 	
 	
 	//case6
@@ -86,7 +91,7 @@ public class CreateMap : MonoBehaviour
 	
 	//Case 4
 	private bool cube = true;
-	public int nrOfCubesCase4 = 2;
+	public int nrOfCubesCase4 = 0;
 	int[] lastCube = new int[]{-1,-1,0,-1};
 	
 	//Case 5
@@ -106,8 +111,11 @@ public class CreateMap : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{	
-		for (int i = 0; i<40; i++) {
+		for (int i = 0; i<50; i++) {
 			CreateGroundRow ();
+			if(i == 38){
+				CreateGems();
+			}
 		}
 		/*Levels*/
 		level1 = new int[][] 
@@ -233,15 +241,89 @@ public class CreateMap : MonoBehaviour
 			if (zPos - GameObject.Find ("unitychan").transform.position.z  < groundrate ) {
 				//lastRow = CreateGroundRow();
 				counter = 0;
-				
+
+
+
+
 				switch (mode) {
 				case 1:
 					//choose color
 					groundrowcounter++;
 					CreateGroundRow ();
-					if (groundrowcounter == 5) {
+					if (groundrowcounter == 10) {
 						CreateGems ();
-					} else if (groundrowcounter >= 10) {
+					} else if (groundrowcounter >= 20) {
+						
+						mode = 2;
+						groundrowcounter = 0;
+					}
+					
+					break;
+				case 2:
+
+					//Diffrent obsacalelevel
+					groundrowcounter++;
+					Obstacalelevel (obsMode);
+					if (groundrowcounter >= 35) {
+						mode = 3;
+						PAM = GameObject.Find ("unitychan").GetComponent<PlayerControl> ().PAM;
+						obsMode++;
+						newMiddlelevel = true;
+						if (obsMode >8){
+							obsMode = 2;
+						}
+						
+						groundrowcounter = 0;
+					}
+
+					break;
+				case 3:
+		
+					//Portal mode
+					groundrowcounter++;
+					CreateGroundRow ();
+					if (PAM == 0) {
+						groundrowcounter = 0;
+						mode = 4;
+						PAMinverted = 0;
+					} else {
+						if (groundrowcounter == 10) {
+							PAMinverted++;
+							CreatePortals ();
+							PAM--;
+							groundrowcounter = 0;
+						} 
+						
+					}
+					
+					break;
+				case 4:
+					groundrowcounter++;
+					CreateGroundRow ();
+					if (groundrowcounter == 10) {
+						CreateCoinSign();
+					}else if (groundrowcounter > 10 && groundrowcounter< 30) {
+						CreateCoins();
+					}
+					else if (groundrowcounter >= 35) {
+						mode = 1;
+						groundrowcounter = 0;
+					}
+
+					break;
+				default:
+					
+					break;
+				}
+
+			/*	switch (mode) {
+				case 1:
+					//choose color
+					groundrowcounter++;
+					CreateGroundRow ();
+					if (groundrowcounter == 10) {
+						CreateGems ();
+					} else if (groundrowcounter >= 20) {
 
 						mode = 3;
 						groundrowcounter = 0;
@@ -252,25 +334,28 @@ public class CreateMap : MonoBehaviour
 					//Portal mode
 					groundrowcounter++;
 					CreateGroundRow ();
-					if (GameObject.Find ("unitychan").GetComponent<PlayerControl> ().PAM == 0) {
+					if (PAM == 0) {
 						groundrowcounter = 0;
 						mode = 1;
+						PAMinverted = 0;
 					} else {
-						if (groundrowcounter == 5) {
+						if (groundrowcounter == 10) {
+							PAMinverted++;
 							CreatePortals ();
-						} else if (groundrowcounter >= 10) {
-							mode = 3;
+							PAM--;
 							groundrowcounter = 0;
-						}
+						} 
 
 					}
 					break;
 				case 3:
 					//Diffrent obsacalelevel
 					groundrowcounter++;
-					Obstacalelevel (obsMode);
+					Obstacalelevel (1);
+					//Obstacalelevel (obsMode);
 					if (groundrowcounter >= 35) {
 						mode = 2;
+						PAM = GameObject.Find ("unitychan").GetComponent<PlayerControl> ().PAM;
 						obsMode++;
 						newMiddlelevel = true;
 						if (obsMode >8){
@@ -285,7 +370,7 @@ public class CreateMap : MonoBehaviour
 				default:
 					
 					break;
-				}
+				}*/
 			}
 		}
 	}
@@ -392,10 +477,14 @@ public class CreateMap : MonoBehaviour
 			if (newMiddlelevel){
 				lastCube = new int[]{-1,-1,0,-1};
 				newMiddlelevel = false;
+				nrOfCubesCase4 = 0;
+				print ("newMiddlelevel");
+				//cube = true;
 			}
 			if (cube) {
-				if (nrOfCubesCase4 >= 1) {
-					nrOfCubesCase4 = 0;
+				if (nrOfCubesCase4 == 0) {
+					nrOfCubesCase4++;
+					print (lastCube);
 					if (Enumerable.SequenceEqual (lastCube, hole_0111)) {
 						lastCube [0] = -1;
 						lastCube [1] = 0;
@@ -403,22 +492,43 @@ public class CreateMap : MonoBehaviour
 						lastCube [3] = -1;
 						lastCube [2] = 0;
 					} else {	
-						for (int i = 1; i <3; i++) {
+						for (int i = 1; i <= 2; i++) {
 							if (lastCube [i] == 0) {
 								lastCube [i] = -1;
-								int l = i + Random.Range (0, 3) - 1;
+								int l;
+								int rnd = Random.Range (0, 2);
+								print ("rnd: "+ rnd);
+								if(rnd == 0 && i == 1){
+									l = 0;
+								}else if(rnd == 1 && i == 1){
+									l = 2;
+								}else if(rnd == 0 && i == 2){
+									l = 1;
+								}else if(rnd == 1 && i == 2){
+									l = 3;
+								}else{
+									print ("ska inte vara här");
+									l= 1;
+								}
+								print (l);
+								print (i+","+l);
 								//print(l);
 								lastCube [l] = 0;
+								break;
 							}
 						}
 					}
-				} else {
+				} else if (nrOfCubesCase4 == 1) {
 					nrOfCubesCase4++;
 					cube = false;
+
+				}else{
+					print("BORDE INTE VARA HÄR");
 				}
 				
 				CreateRow (lastCube);
 			} else {
+				nrOfCubesCase4 = 0;
 				CreateRow (hole_1111);
 				cube = true;
 			}
@@ -558,7 +668,7 @@ public class CreateMap : MonoBehaviour
 		}
 		//GameObject.Find ("unitychan").GetComponent<PlayerControl> ().PAM
 		GameObject sign = new GameObject();
-		sign = (GameObject)Instantiate (SignGems);
+		sign = (GameObject)Instantiate (SignPortals);
 		sign.transform.position = new Vector3 (sign.transform.position.x,sign.transform.position.y, zPos);
 		
 	}
@@ -574,10 +684,43 @@ public class CreateMap : MonoBehaviour
 		for (int i = 0; i < temp.Length; i++) {
 			temp [i].transform.position = new Vector3 (i * 2, temp [i].transform.position.y, zPos);
 		}
+		GameObject sign = new GameObject();
+		sign = (GameObject)Instantiate (SignGems);
+		sign.transform.position = new Vector3 (sign.transform.position.x,sign.transform.position.y, zPos);
+
 		//GameObject sign = new GameObject();
 		//sign = (GameObject)Instantiate (SignGems);
 		//sign.transform.position = new Vector3 (sign.transform.position.x,sign.transform.position.y, zPos);
 
 	}
+
+	void CreateCoins ()
+	{
+		GameObject[] temp = new GameObject[] {
+			(GameObject)Instantiate (Coin),
+			(GameObject)Instantiate (Coin),
+			(GameObject)Instantiate (Coin),
+			(GameObject)Instantiate (Coin)
+		};
+		for (int i = 0; i < temp.Length; i++) {
+			int rand = Random.Range (0, 4);
+			if (rand == 0) {
+				temp [i].transform.position = new Vector3 (i * 2, temp [i].transform.position.y, zPos);
+			} else if (rand == 1) {
+				temp [i].transform.position = new Vector3 (i * 2, 2, zPos);
+			} else {
+				Destroy (temp [i]);
+			}
+		}
+
+		
+	}
+
+	void CreateCoinSign(){
+		GameObject sign = new GameObject();
+		sign = (GameObject)Instantiate (SignCoins);
+		sign.transform.position = new Vector3 (sign.transform.position.x,sign.transform.position.y, zPos);
+	}
+
 	
 }

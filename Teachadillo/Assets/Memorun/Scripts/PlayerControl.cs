@@ -40,6 +40,7 @@ public class PlayerControl : MonoBehaviour {
 		anim = GetComponent<Animator>();				//Gathers Animator component from character
 		col = GetComponent<CapsuleCollider>();			//Gathers Capsule collider component from character
 		Physics.gravity = new Vector3 (0,-15.25f,0);	//Sets gravity
+		setScore (0);
 	}
 
 	// Update is called once per frame
@@ -56,7 +57,8 @@ public class PlayerControl : MonoBehaviour {
 			isGrounded = false;
 		}
 		if (start && !GO) {
-			setScore ();
+			//setScore ();
+
 			Movement ();
 		} else {
 			if(Input.GetButtonDown("Jump")){
@@ -104,8 +106,8 @@ public class PlayerControl : MonoBehaviour {
 		}
 	}
 
-	void setScore(){
-		int temp = combo;
+	void setScore(int coin){
+		/*int temp = combo;
 		if (combo > 4) {
 			temp = 4;
 		}
@@ -113,8 +115,8 @@ public class PlayerControl : MonoBehaviour {
 			temp = temp * gems.Count;
 		} else {
 			temp = temp * 1;
-		}
-		score = score + temp;
+		}*/
+		score = score + coin;
 		scoretxt.text = "Score: " + score.ToString ();
 		combotxt.text = "Combo: " + combo.ToString();
 	}
@@ -165,6 +167,9 @@ public class PlayerControl : MonoBehaviour {
 		if (coll.gameObject.name.Equals("PortalYellow(Clone)")) {
 			CalcCombo((int)portals.Dequeue(),4);
 		}
+		if (coll.gameObject.name.Equals("Coin(Clone)")) {
+			setScore(100);
+		}
 	}
 
 	void CalcCombo(int temp, int cor){ //Combo counter
@@ -174,7 +179,6 @@ public class PlayerControl : MonoBehaviour {
 		else{
 			combo = 1;
 		}
-		PAM--;
 	}
 
 	void CalcGem(int temp){ //Handle gem and portal que, also count amount of gems collected.
