@@ -46,7 +46,7 @@ public class PlayerControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		starting ();
-		GameOfLife ();
+		GameOfLife (false);
 		if (Physics.Raycast(transform.position, -transform.up, col.height/2)){
 				isGrounded = true;
 				Jumping = false;
@@ -121,10 +121,10 @@ public class PlayerControl : MonoBehaviour {
 		combotxt.text = "Combo: " + combo.ToString();
 	}
 
-	void GameOfLife(){
+	void GameOfLife(bool state){
 		float ypos = transform.position.y;
 		bool waiting = true;
-		if (ypos < -1) {
+		if (ypos < -1 || state) {
 			scoretxt.text = "";
 			combotxt.text = "";
 			resetvalues();
@@ -143,16 +143,16 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void gpcheck(Collider coll){ //Gem and Portal check
-		if (coll.gameObject.name.Equals("GemRed(Clone)")){
+		if (coll.gameObject.name.Equals("GemRed1(Clone)")){
 			CalcGem(1);
 		}
-		if (coll.gameObject.name.Equals("GemGreen(Clone)")) {
+		if (coll.gameObject.name.Equals("GemGreen1(Clone)")) {
 			CalcGem(2);
 		}
-		if (coll.gameObject.name.Equals("GemBlue(Clone)")) {
+		if (coll.gameObject.name.Equals("GemBlue1(Clone)")) {
 			CalcGem(3);
 		}
-		if (coll.gameObject.name.Equals("GemYellow(Clone)")) {
+		if (coll.gameObject.name.Equals("GemYellow1(Clone)")) {
 			CalcGem(4);
 		}
 		if (coll.gameObject.name.Equals("PortalRed(Clone)")) {
@@ -170,6 +170,9 @@ public class PlayerControl : MonoBehaviour {
 		if (coll.gameObject.name.Equals("Coin(Clone)")) {
 			setScore(100);
 		}
+		if (coll.gameObject.name.Equals("Obstacle(Clone)")) {
+			GameOfLife(true);
+		}
 	}
 
 	void CalcCombo(int temp, int cor){ //Combo counter
@@ -177,6 +180,7 @@ public class PlayerControl : MonoBehaviour {
 			combo++;
 		}
 		else{
+			GameOfLife(true);
 			combo = 1;
 		}
 	}
@@ -185,6 +189,7 @@ public class PlayerControl : MonoBehaviour {
 		gems.Enqueue(temp);
 		portals = new Queue(gems);
 		PAM = portals.Count;
+		print ("GEM");
 	}
 
 

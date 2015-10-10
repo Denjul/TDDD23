@@ -386,7 +386,7 @@ public class CreateMap : MonoBehaviour
 		case 2:
 			//Level with only walls no holes
 			if (counterOfGround >= nrOfGround) {
-				int i = Random.Range (0, wallslevel.Length);
+				int i = Random.Range (0, wallslevel.Length );
 				int[] obstacle = wallslevel [i];
 				CreateRow (obstacle);
 				counterOfGround = 0;
@@ -675,6 +675,17 @@ public class CreateMap : MonoBehaviour
 	
 	void CreateGems ()
 	{
+
+		GameObject gem = new GameObject();
+		int rand = Random.Range (0, 4);
+		gem = (GameObject)Instantiate (Gems [rand]);
+		gem.transform.position = new Vector3 (gem.transform.position.x,gem.transform.position.y, zPos);
+
+		GameObject sign = new GameObject();
+		sign = (GameObject)Instantiate (SignGems);
+		sign.transform.position = new Vector3 (sign.transform.position.x,sign.transform.position.y, zPos);
+
+		/*
 		GameObject[] temp = new GameObject[] {
 			(GameObject)Instantiate (Gems [0]),
 			(GameObject)Instantiate (Gems [1]),
@@ -687,7 +698,7 @@ public class CreateMap : MonoBehaviour
 		GameObject sign = new GameObject();
 		sign = (GameObject)Instantiate (SignGems);
 		sign.transform.position = new Vector3 (sign.transform.position.x,sign.transform.position.y, zPos);
-
+		*/
 		//GameObject sign = new GameObject();
 		//sign = (GameObject)Instantiate (SignGems);
 		//sign.transform.position = new Vector3 (sign.transform.position.x,sign.transform.position.y, zPos);
