@@ -10,9 +10,9 @@ public class CreateMap : MonoBehaviour
 	public GameObject[] Portals = new GameObject[4];
 	public GameObject[] Gems = new GameObject[4];
 	public int[] spawnrate = new int[2];
-	public int obsMode;
+	public int obsMode = 1;
 	private GameObject check;
-	public float groundrate = .18f;
+	public float groundrate = 70;
 	private float counter = .0f;
 	private float counter2 = .0f;
 	private float counter3 = .0f;
@@ -25,6 +25,7 @@ public class CreateMap : MonoBehaviour
 	private GameObject[] lastRow = new GameObject[4];
 	private bool newMiddlelevel = true;
 	private int zPos = -30;
+	private bool holes = false;
 	
 	
 	//case6
@@ -217,9 +218,8 @@ public class CreateMap : MonoBehaviour
 	void Update ()
 	{
 		counter2 += Time.deltaTime;
-		counter3 += Time.deltaTime;
 		time += Time.deltaTime;
-		//A starting phase that creates the ground when the kitten is in the air
+		//A starting phase that creates the ground when the unitychan is in the air
 		if ((counter2 < 7)) {
 			/*if (counter3 >= groundrate) {
 				lastRow = CreateGroundRow ();
@@ -229,7 +229,7 @@ public class CreateMap : MonoBehaviour
 		} else { // Now in the game loop
 			counter += Time.deltaTime;
 			//Checks if it is time to create a new row
-			if (counter >= groundrate) {
+			if (zPos - GameObject.Find ("unitychan").transform.position.z  < groundrate ) {
 				//lastRow = CreateGroundRow();
 				counter = 0;
 				
@@ -239,26 +239,27 @@ public class CreateMap : MonoBehaviour
 					groundrowcounter++;
 					if (groundrowcounter == 5) {
 						CreateGems ();
-					} else if (groundrowcounter >= 8) {
+					} else if (groundrowcounter >= 10) {
+
 						mode = 3;
 						groundrowcounter = 0;
 					}
-					//CreateGroundRow ();
+					CreateGroundRow ();
 					break;
 				case 2:
 					//Portal mode
 					groundrowcounter++;
-					if (GameObject.Find ("kitten").GetComponent<PlayerControl> ().PAM == 0) {
+					if (GameObject.Find ("unitychan").GetComponent<PlayerControl> ().PAM == 0) {
 						groundrowcounter = 0;
 						mode = 1;
 					} else {
 						if (groundrowcounter == 5) {
 							CreatePortals ();
-						} else if (groundrowcounter >= 8) {
+						} else if (groundrowcounter >= 10) {
 							mode = 3;
 							groundrowcounter = 0;
 						}
-						//CreateGroundRow ();
+						CreateGroundRow ();
 					}
 					break;
 				case 3:
@@ -266,6 +267,12 @@ public class CreateMap : MonoBehaviour
 					groundrowcounter++;
 					if (groundrowcounter >= 35) {
 						mode = 2;
+						obsMode++;
+						newMiddlelevel = true;
+						if (obsMode >8){
+							obsMode = 1;
+						}
+
 						groundrowcounter = 0;
 					}
 					Obstacalelevel (obsMode);
@@ -279,17 +286,13 @@ public class CreateMap : MonoBehaviour
 		}
 	}
 	
-	void Obstacalelevel (int obs)
+	void Obstacalelevel (int level)
 	{
-		switch (obs) {
+			
+		switch (level) {
 		case 1:
-			if (counter > Random.Range (1, 5)) {
-				int i = Random.Range (0, level3.Length);
-				int[] obstacle = level3 [i];
-				CreateRow (obstacle);
-			} else {
-				CreateGroundRow ();
-			}
+			//GroundRows
+			CreateGroundRow ();
 			break;
 		case 2:
 			//Level with only walls no holes
@@ -304,72 +307,27 @@ public class CreateMap : MonoBehaviour
 			}
 			break;
 		case 3:
-			//Random holes
-			int k = Random.Range (0, holelevel.Length);
-			int[] obstacle1 = holelevel [k];
-			CreateRow (obstacle1);
-			counterOfGround = 0;
+			//Level with only walls no holes
+			if (counterOfGround >= 2) {
+				if(holes){
+					int i = Random.Range (0, wallslevel.Length);
+					int[] obstacle = wallslevel [i];
+					CreateRow (obstacle);
+					counterOfGround = 0;
+					holes = false;
+				}else{
+					int i = Random.Range (0, holelevel.Length);
+					int[] obstacle = holelevel [i];
+					CreateRow (obstacle);
+					counterOfGround = 0;
+					holes = true;
+				}
+			} else {
+				counterOfGround++;
+				CreateGroundRow ();
+			}
 			break;
 		case 4:
-			//double block then hole then double block
-			if (newMiddlelevel){
-				lastCube = new int[]{-1,-1,0,-1};
-				newMiddlelevel = false;
-			}
-			if (cube) {
-				if (nrOfCubesCase4 >= 1) {
-					nrOfCubesCase4 = 0;
-					if (Enumerable.SequenceEqual (lastCube, hole_0111)) {
-						lastCube [0] = -1;
-						lastCube [1] = 0;
-					} else if (Enumerable.SequenceEqual (lastCube, hole_1110)) {
-						lastCube [3] = -1;
-						lastCube [2] = 0;
-					} else {	
-						for (int i = 1; i <3; i++) {
-							if (lastCube [i] == 0) {
-								lastCube [i] = -1;
-								int l = i + Random.Range (0, 3) - 1;
-								//print(l);
-								lastCube [l] = 0;
-							}
-						}
-					}
-				} else {
-					nrOfCubesCase4++;
-					cube = false;
-				}
-				
-				CreateRow (lastCube);
-			} else {
-				CreateRow (hole_1111);
-				cube = true;
-			}
-			
-			
-			break;
-		case 5:
-			counterDoubleCubes++;
-			switch (counterDoubleCubes) {
-			case 1:
-				CreateRow (hole_1100);
-				break;
-			case 2:
-				CreateRow (hole_1001);
-				break;
-			case 3:
-				CreateRow (hole_0011);
-				break;
-			case 4:
-				CreateRow (hole_1001);
-				counterDoubleCubes = 0;
-				break;
-			default:
-				
-				break;
-			}
-			break;	
-		case 6:
 			//level that makes a oneblock path
 			if (newMiddlelevel){
 				lastCube = new int[]{-1,-1,0,-1};
@@ -424,9 +382,106 @@ public class CreateMap : MonoBehaviour
 					break;
 				}
 			}
+
+			break;
+		case 5:
+			//double block then hole then double block
+			if (newMiddlelevel){
+				lastCube = new int[]{-1,-1,0,-1};
+				newMiddlelevel = false;
+			}
+			if (cube) {
+				if (nrOfCubesCase4 >= 1) {
+					nrOfCubesCase4 = 0;
+					if (Enumerable.SequenceEqual (lastCube, hole_0111)) {
+						lastCube [0] = -1;
+						lastCube [1] = 0;
+					} else if (Enumerable.SequenceEqual (lastCube, hole_1110)) {
+						lastCube [3] = -1;
+						lastCube [2] = 0;
+					} else {	
+						for (int i = 1; i <3; i++) {
+							if (lastCube [i] == 0) {
+								lastCube [i] = -1;
+								int l = i + Random.Range (0, 3) - 1;
+								//print(l);
+								lastCube [l] = 0;
+							}
+						}
+					}
+				} else {
+					nrOfCubesCase4++;
+					cube = false;
+				}
+				
+				CreateRow (lastCube);
+			} else {
+				CreateRow (hole_1111);
+				cube = true;
+			}
+			
+			
+			break;
+		case 6:
+			//Random holes
+			int k = Random.Range (0, holelevel.Length);
+			int[] obstacle1 = holelevel [k];
+			CreateRow (obstacle1);
+			counterOfGround = 0;
+			counterDoubleCubes++;
+
 			break;
 		case 7:
-		CreatePortals();
+			switch (counterDoubleCubes) {
+			case 1:
+				CreateRow (hole_1100);
+				break;
+			case 2:
+				CreateRow (hole_1001);
+				break;
+			case 3:
+				CreateRow (hole_0011);
+				break;
+			case 4:
+				CreateRow (hole_1001);
+				counterDoubleCubes = 0;
+				break;
+			default:
+				
+				break;
+			}
+			break;
+		case 8:
+
+			break;
+		case 9:
+			switch (counterDoubleCubes) {
+			case 1:
+				CreateRow (hole_1100);
+				break;
+			case 2:
+				CreateRow (hole_1001);
+				break;
+			case 3:
+				CreateRow (hole_0011);
+				break;
+			case 4:
+				CreateRow (hole_1001);
+				counterDoubleCubes = 0;
+				break;
+			default:
+				
+				break;
+			}
+			break;
+		case 10:
+			if (counter > Random.Range (1, 5)) {
+				int i = Random.Range (0, level3.Length);
+				int[] obstacle = level3 [i];
+				CreateRow (obstacle);
+			} else {
+				CreateGroundRow ();
+			}
 			break;
 			
 			

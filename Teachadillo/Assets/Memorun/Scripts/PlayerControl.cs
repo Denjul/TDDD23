@@ -6,7 +6,6 @@ using System;
 public class PlayerControl : MonoBehaviour {
 
 	CharacterController controller;
-	public bool isGrounded = false;
 	public int PAM = 0;
 	private int score = 0; //Game Score
 	public Text scoretxt;
@@ -18,53 +17,68 @@ public class PlayerControl : MonoBehaviour {
 	private Queue gems = new Queue();
 	public Queue portals;
 	private float counter = .0f;
-	public float speed = 10.0f;
-	public float jumpSpeed = 6.0f;
 	public float gravity = 30.0f;
-	private Vector3 moveDirection = Vector3.zero;
+
+	private Rigidbody rb;
+	private Animator anim;
+	private CapsuleCollider col;
+	private Vector3 MoveDirection = Vector3.zero;
+	private Vector3 JumpDirection = Vector3.zero;
+	public float speed = .5f;
+	private bool isGrounded = false;
+	private bool inAir = false;
+	private bool Jumping = false;
+	public float jumpSpeed = 150.0f;
+	private float airControl = 1;
 
 	// Use this for initialization
 	void Start () {
-		controller = GetComponent<CharacterController>();
 		GameOver.text = "";
 		GOtext.text = "";
+		rb = GetComponent<Rigidbody>();
+		anim = GetComponent<Animator>();
+		col = GetComponent<CapsuleCollider>();
 	}
-	
 	// Update is called once per frame
 	void Update () {
-		GameOfLife ();
-		setScore ();
 		counter += Time.deltaTime;
-		if (controller.isGrounded) {
-			run();
+		if (Physics.Raycast(transform.position, -transform.up, col.height/2 + 2)){
+				isGrounded = true;
+				Jumping = false;
+				inAir = false;
+		}
+		else if (!inAir){
+			inAir = true;
+			JumpDirection = MoveDirection;
+		}
+		if (counter > 4) {
+					Movement();
 		}
 
-		if (Input.GetButton ("Jump") && isGrounded) {
-			if(GameOver.text.Equals("GAME OVER!")){
-				GameOver.text = "";
-				print("RESTART");
-				Application.LoadLevel(Application.loadedLevel);
-				GO = false;
-			}
-			else{
-				jump();
-			}
-		}
-		if (counter > 14) {
-			fall ();
-		}
+	} 
 
-		if (controller.isGrounded) {
-			isGrounded = true;
+	void Movement(){
+		AnimControl ();
+		MoveDirection = new Vector3 ((Input.GetAxisRaw ("Horizontal")*Time.deltaTime)/13, MoveDirection.y, .003f);
+		this.transform.Translate (MoveDirection);
+
+		if (Input.GetButtonDown("Jump") && isGrounded){
+			Jumping = true;    
+			JumpDirection = MoveDirection;
+			rb.AddForce((transform.up) * jumpSpeed);
+		}
+		if (isGrounded) {
+			this.transform.Translate ((MoveDirection.normalized * speed) * Time.deltaTime);
+		}
+		else if (Jumping || inAir) {
+			this.transform.Translate ((JumpDirection * speed * airControl) * Time.deltaTime);
 		}
 	}
 
-	void run(){
-		GetComponent<Animation> ().Play ("Run");
-		moveDirection = new Vector3 (Input.GetAxis ("Horizontal"),0 , 1);  //get keyboard input to move in the horizontal direction
-		moveDirection = transform.TransformDirection (moveDirection);  //apply this direction to the character
-		moveDirection *= speed;  //increase the speed of the movement by the factor "speed" 
+	void AnimControl(){
+		GetComponent<Animation> ().Play ("RUN00_F");
 	}
+
 
 	void setScore(){
 		int temp = combo;
@@ -79,18 +93,6 @@ public class PlayerControl : MonoBehaviour {
 		score = score + temp;
 		scoretxt.text = "Score: " + score.ToString ();
 		combotxt.text = "Combo: " + combo.ToString();
-	}
-
-	void jump(){
-		isGrounded = false;
-		GetComponent<Animation> ().Stop ("Run");
-		GetComponent<Animation> ().Play ("Jump");
-		moveDirection.y = jumpSpeed;
-	}
-
-	void fall(){
-		moveDirection.y -= gravity * Time.deltaTime;       //Apply gravity  
-		controller.Move (moveDirection * Time.deltaTime); 
 	}
 
 	void GameOfLife(){

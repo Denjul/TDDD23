@@ -14,7 +14,7 @@ public class EnviormentMove : MonoBehaviour {
 		//transform.Tr(0,0,GameObject.Find("kitten").transform.position.z - 3);
 		//transform.Translate (0, 0,GameObject.Find ("kitten").transform.position.z -3 , Space.World);
 		//transform.position.z = GameObject.Find ("kitten").transform.position.z - 3;
-		transform.position = new Vector3(transform.position.x, transform.position.y, GameObject.Find ("kitten").transform.position.z - distance);
+		transform.position = new Vector3(transform.position.x, transform.position.y, GameObject.Find ("unitychan").transform.position.z - distance);
 
 			
 	
