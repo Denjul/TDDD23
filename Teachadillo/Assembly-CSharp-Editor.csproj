@@ -48,7 +48,6 @@
      <Compile Include="Assets\_MK\_MKGlowSystem\_Internal\Editor\MK_StandardShaderGUI.cs" />
      <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_eye.shader" />
      <None Include="Assets\_MK\_MKGlowSystem\_Shader\_MKBase\Mobile\MK_Mobile-Diffuse.shader" />
-     <None Include="Assets\Kitten\Shaders\Normal-Diffuse.shader" />
      <None Include="Assets\UnityChan\Models\UnityChanShader\Shader\Unitychan_chara_fuku.shader" />
      <None Include="Assets\_MK\_MKGlowSystem\_Shader\_MKBase\Illumin\MK_Illumin-Glossy.shader" />
      <None Include="Assets\_MK\_MKGlowSystem\_Shader\_MKBase\Cutout\MK_Cutout-Glossy.shader" />
@@ -62,7 +61,6 @@
      <None Include="Assets\_MK\_MKGlowSystem\_Shader\_MKBase\Unlit\MK_Unlit-Transparent.shader" />
      <None Include="Assets\_MK\_MKGlowSystem\_Shader\_MKBase\Normal\MK_Normal-DiffuseBumped.shader" />
      <None Include="Assets\_MK\_MKGlowSystem\_Shader\_MKBase\Normal\MK_Normal-DiffuseBumpSpec.shader" />
-     <None Include="Assets\Kitten\Shaders\Alpha-Diffuse.shader" />
      <None Include="Assets\_MK\_MKGlowSystem\_Shader\_MKBase\UnityStandardCoreMKGlowSystem.cginc" />
      <None Include="Assets\_MK\_MKGlowSystem\_Shader\_MKBase\Emission\MK_Emission-Diffuse.shader" />
      <None Include="Assets\_MK\_MKGlowSystem\_Shader\_MKGlowEffect\MKGlowCompose.shader" />
@@ -125,9 +123,6 @@
      <None Include="Assets\_MK\_MKGlowSystem\_Shader\_MKBase\Reflective\MK_Reflective-Parallax.shader" />
      <None Include="Assets\_MK\_MKGlowSystem\_Shader\_MKBase\Mobile\MK_Mobile-DiffuseBumpSpec.shader" />
      <None Include="Assets\_MK\_MKGlowSystem\_Shader\_MKBase\Reflective\MK_Reflective-DiffuseBumped.shader" />
- <Reference Include="Assembly-UnityScript">
- <HintPath>C:/Users/Krille/Documents/GitHub/TDDD23/Teachadillo/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
- </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>

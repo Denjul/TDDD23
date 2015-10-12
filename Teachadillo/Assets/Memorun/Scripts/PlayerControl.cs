@@ -31,6 +31,9 @@ public class PlayerControl : MonoBehaviour {
 	public float jumpSpeed = 150.0f;
 	private float airControl = 1;
 
+	int RunDir = Animator.StringToHash("RunDir");
+	int Jump = Animator.StringToHash("Jump");
+
 	// Use this for initialization
 	void Start () {
 		GameOver.text = "";
@@ -42,13 +45,14 @@ public class PlayerControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		counter += Time.deltaTime;
-		if (Physics.Raycast(transform.position, -transform.up, col.height/2 + 2)){
+		if (Physics.Raycast(transform.position, -transform.up, col.height/2)){
 				isGrounded = true;
 				Jumping = false;
 				inAir = false;
 		}
 		else if (!inAir){
 			inAir = true;
+			isGrounded = false;
 			JumpDirection = MoveDirection;
 		}
 		if (counter > 4) {
@@ -58,27 +62,26 @@ public class PlayerControl : MonoBehaviour {
 	} 
 
 	void Movement(){
-		AnimControl ();
+		print (isGrounded);
 		MoveDirection = new Vector3 ((Input.GetAxisRaw ("Horizontal")*Time.deltaTime)/13, MoveDirection.y, .003f);
+		anim.SetInteger("RunDir",(int)Input.GetAxisRaw ("Horizontal")); 
 		this.transform.Translate (MoveDirection);
 
 		if (Input.GetButtonDown("Jump") && isGrounded){
-			Jumping = true;    
+			Jumping = true;  
 			JumpDirection = MoveDirection;
 			rb.AddForce((transform.up) * jumpSpeed);
 		}
 		if (isGrounded) {
 			this.transform.Translate ((MoveDirection.normalized * speed) * Time.deltaTime);
+			anim.SetBool ("Jump", false);
 		}
 		else if (Jumping || inAir) {
-			this.transform.Translate ((JumpDirection * speed * airControl) * Time.deltaTime);
+			//this.transform.Translate ((JumpDirection * speed * airControl) * Time.deltaTime);
+			this.transform.Translate ((MoveDirection.normalized * speed) * Time.deltaTime);
+			anim.SetBool ("Jump", true);
 		}
 	}
-
-	void AnimControl(){
-		GetComponent<Animation> ().Play ("RUN00_F");
-	}
-
 
 	void setScore(){
 		int temp = combo;

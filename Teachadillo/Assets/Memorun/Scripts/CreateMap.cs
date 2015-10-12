@@ -358,7 +358,6 @@ public class CreateMap : MonoBehaviour
 					case6Mode = 3;
 				}
 				CreateRow(firstRowGround);
-				print (firstRow);
 				firstRow = true;
 			}
 			if(firstRow){
