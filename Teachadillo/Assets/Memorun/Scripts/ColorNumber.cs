@@ -10,6 +10,6 @@ public class ColorNumber : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		GetComponent<TextMesh> ().text = "Color nr " + GameObject.Find ("kitten").GetComponent<PlayerControl> ().PAM;
+		GetComponent<TextMesh> ().text = "Color nr " + GameObject.Find ("unitychan").GetComponent<PlayerControl> ().PAM;
 	}
 }

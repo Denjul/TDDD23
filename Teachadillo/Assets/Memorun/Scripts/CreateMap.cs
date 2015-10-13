@@ -9,6 +9,7 @@ public class CreateMap : MonoBehaviour
 	public GameObject Obstacle;
 	public GameObject[] Portals = new GameObject[4];
 	public GameObject[] Gems = new GameObject[4];
+	public GameObject SignGems;
 	public int[] spawnrate = new int[2];
 	public int obsMode = 1;
 	private GameObject check;
@@ -237,6 +238,7 @@ public class CreateMap : MonoBehaviour
 				case 1:
 					//choose color
 					groundrowcounter++;
+					CreateGroundRow ();
 					if (groundrowcounter == 5) {
 						CreateGems ();
 					} else if (groundrowcounter >= 10) {
@@ -244,11 +246,12 @@ public class CreateMap : MonoBehaviour
 						mode = 3;
 						groundrowcounter = 0;
 					}
-					CreateGroundRow ();
+
 					break;
 				case 2:
 					//Portal mode
 					groundrowcounter++;
+					CreateGroundRow ();
 					if (GameObject.Find ("unitychan").GetComponent<PlayerControl> ().PAM == 0) {
 						groundrowcounter = 0;
 						mode = 1;
@@ -259,12 +262,13 @@ public class CreateMap : MonoBehaviour
 							mode = 3;
 							groundrowcounter = 0;
 						}
-						CreateGroundRow ();
+
 					}
 					break;
 				case 3:
 					//Diffrent obsacalelevel
 					groundrowcounter++;
+					Obstacalelevel (obsMode);
 					if (groundrowcounter >= 35) {
 						mode = 2;
 						obsMode++;
@@ -275,7 +279,7 @@ public class CreateMap : MonoBehaviour
 
 						groundrowcounter = 0;
 					}
-					Obstacalelevel (obsMode);
+
 					
 					break;
 				default:
@@ -552,6 +556,10 @@ public class CreateMap : MonoBehaviour
 		for (int i = 0; i < temp.Length; i++) {
 			temp [i].transform.position = new Vector3 (i * 2, temp [i].transform.position.y, zPos);
 		}
+		//GameObject.Find ("unitychan").GetComponent<PlayerControl> ().PAM
+		GameObject sign = new GameObject();
+		sign = (GameObject)Instantiate (SignGems);
+		sign.transform.position = new Vector3 (sign.transform.position.x,sign.transform.position.y, zPos);
 		
 	}
 	
@@ -566,6 +574,10 @@ public class CreateMap : MonoBehaviour
 		for (int i = 0; i < temp.Length; i++) {
 			temp [i].transform.position = new Vector3 (i * 2, temp [i].transform.position.y, zPos);
 		}
+		//GameObject sign = new GameObject();
+		//sign = (GameObject)Instantiate (SignGems);
+		//sign.transform.position = new Vector3 (sign.transform.position.x,sign.transform.position.y, zPos);
+
 	}
 	
 }

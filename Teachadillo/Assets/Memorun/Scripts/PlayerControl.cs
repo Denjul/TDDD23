@@ -6,45 +6,46 @@ using System;
 public class PlayerControl : MonoBehaviour {
 
 	CharacterController controller;
-	public int PAM = 0;
-	private int score = 0; //Game Score
-	public Text scoretxt;
-	private int combo = 1; //Combo
-	public Text combotxt;
-	public Text GameOver;
-	public Text GOtext;
-	public bool GO = false;
-	private Queue gems = new Queue();
-	public Queue portals;
-	private float counter = .0f;
-	public float gravity = 30.0f;
+	public int PAM = 0;					//Portals Amount Counter
+	private int score = 0;				//Game Score Text
+	public Text scoretxt; 				//Score text
+	private int combo = 1;				//Combo Counter
+	public Text combotxt;				//Combo text
+	public Text GameOver;				//GameOver text (GameOver)
+	public Text GOtext;					//GameOver text (Press space to continue etc)
+	public Text Countdown;				//Countdown text for beginning for game.
+	public bool GO = false;				//GameOver
+	private bool start = false;			//Starts game when ready
+	private Queue gems = new Queue();	//Que for holding gems, keeping track of order
+	public Queue portals;				//Que for checking if the right portals are being passed in the game
+	private float counter = .0f;		//Counter for gametime
 
-	private Rigidbody rb;
-	private Animator anim;
-	private CapsuleCollider col;
-	private Vector3 MoveDirection = Vector3.zero;
-	private Vector3 JumpDirection = Vector3.zero;
-	public float speed = .5f;
-	private bool isGrounded = false;
-	private bool inAir = false;
-	private bool Jumping = false;
-	public float jumpSpeed = 150.0f;
-	private float airControl = 1;
-
-	int RunDir = Animator.StringToHash("RunDir");
-	int Jump = Animator.StringToHash("Jump");
+	private Rigidbody rb;				//Rigidbody component
+	private Animator anim;				//Animator component
+	private CapsuleCollider col;		//Capsule collider component
+	private Vector3 MoveDirection;		//Vector for moving
+	public float speed = .3f;			//Controller for speed
+	private bool isGrounded = false;	//Checks if character is grounded
+	private bool inAir = false;			//Checks if character is in Air
+	private bool Jumping = false;		//Checks if character is jumping
+	private float jumpSpeed = 200.0f;
 
 	// Use this for initialization
 	void Start () {
-		GameOver.text = "";
-		GOtext.text = "";
-		rb = GetComponent<Rigidbody>();
-		anim = GetComponent<Animator>();
-		col = GetComponent<CapsuleCollider>();
+		GameOver.text = "";								//Resets text
+		GOtext.text = "";								//Resets text
+		Countdown.text = "Ready?";
+		MoveDirection = Vector3.zero;					//Initiates moving Vector
+		rb = GetComponent<Rigidbody>();					//Gathers rigidbody component from character
+		anim = GetComponent<Animator>();				//Gathers Animator component from character
+		col = GetComponent<CapsuleCollider>();			//Gathers Capsule collider component from character
+		Physics.gravity = new Vector3 (0,-15.25f,0);	//Sets gravity
 	}
+
 	// Update is called once per frame
 	void Update () {
-		counter += Time.deltaTime;
+		starting ();
+		GameOfLife ();
 		if (Physics.Raycast(transform.position, -transform.up, col.height/2)){
 				isGrounded = true;
 				Jumping = false;
@@ -53,23 +54,44 @@ public class PlayerControl : MonoBehaviour {
 		else if (!inAir){
 			inAir = true;
 			isGrounded = false;
-			JumpDirection = MoveDirection;
 		}
-		if (counter > 4) {
-					Movement();
+		if (start && !GO) {
+			setScore ();
+			Movement ();
+		} else {
+			if(Input.GetButtonDown("Jump")){
+				Application.LoadLevel(Application.loadedLevel);
+			}
 		}
 
 	} 
 
+	//Starting function, when the game is initiated (Character stands still etc)
+	void starting(){
+		if (counter < 4.2f) {
+			if(counter >= 1.2f){
+				if((5-(int)counter)> 1){
+					Countdown.text = (4-(int)counter).ToString();
+				}
+				else{
+					Countdown.text = "GO!";
+				}
+			}
+			counter += Time.deltaTime;
+		} else {
+			anim.SetBool ("Start", true);
+			Countdown.text = "";
+			start = true;
+		}
+	}
+
 	void Movement(){
-		print (isGrounded);
-		MoveDirection = new Vector3 ((Input.GetAxisRaw ("Horizontal")*Time.deltaTime)/13, MoveDirection.y, .003f);
+		MoveDirection = new Vector3 (Input.GetAxisRaw ("Horizontal")/4500, MoveDirection.y, .0005f);
 		anim.SetInteger("RunDir",(int)Input.GetAxisRaw ("Horizontal")); 
 		this.transform.Translate (MoveDirection);
 
 		if (Input.GetButtonDown("Jump") && isGrounded){
 			Jumping = true;  
-			JumpDirection = MoveDirection;
 			rb.AddForce((transform.up) * jumpSpeed);
 		}
 		if (isGrounded) {
@@ -77,7 +99,6 @@ public class PlayerControl : MonoBehaviour {
 			anim.SetBool ("Jump", false);
 		}
 		else if (Jumping || inAir) {
-			//this.transform.Translate ((JumpDirection * speed * airControl) * Time.deltaTime);
 			this.transform.Translate ((MoveDirection.normalized * speed) * Time.deltaTime);
 			anim.SetBool ("Jump", true);
 		}
@@ -99,13 +120,12 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void GameOfLife(){
-		float ypos = controller.transform.position.y;
+		float ypos = transform.position.y;
 		bool waiting = true;
 		if (ypos < -1) {
 			scoretxt.text = "";
 			combotxt.text = "";
 			resetvalues();
-			//GameObject.Find("Audio Source").GetComponent<AudioSource>().Stop();
 			GO = true;
 			GameOver.text = "GAME OVER!";
 			GOtext.text = "Jump! to play again.\r\nPress escape to exit...";
