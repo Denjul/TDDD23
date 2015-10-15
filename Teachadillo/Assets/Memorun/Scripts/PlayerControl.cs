@@ -12,6 +12,7 @@ public class PlayerControl : MonoBehaviour {
 	private int combo = 1;				//Combo Counter
 	public Text combotxt;				//Combo text
 	public Text GameOver;				//GameOver text (GameOver)
+	public Text highscore;				//Shows score after gameover
 	public Text GOtext;					//GameOver text (Press space to continue etc)
 	public Text Countdown;				//Countdown text for beginning for game.
 	public bool GO = false;				//GameOver
@@ -34,6 +35,7 @@ public class PlayerControl : MonoBehaviour {
 	void Start () {
 		GameOver.text = "";								//Resets text
 		GOtext.text = "";								//Resets text
+		highscore.text = "";
 		Countdown.text = "Ready?";
 		MoveDirection = Vector3.zero;					//Initiates moving Vector
 		rb = GetComponent<Rigidbody>();					//Gathers rigidbody component from character
@@ -62,6 +64,7 @@ public class PlayerControl : MonoBehaviour {
 			Movement ();
 		} else {
 			if(Input.GetButtonDown("Jump")){
+				highscore.text = "";
 				Application.LoadLevel(Application.loadedLevel);
 			}
 		}
@@ -129,15 +132,14 @@ public class PlayerControl : MonoBehaviour {
 			combotxt.text = "";
 			resetvalues();
 			GO = true;
+			highscore.text = "Score\r\n" + score.ToString();
 			GameOver.text = "GAME OVER!";
 			GOtext.text = "Jump! to play again.\r\nPress escape to exit...";
 		}
 	}
 
 	void resetvalues(){
-		score = 0;
 		combo = 0;
-		counter = 0;
 		PAM = 0;
 		gems.Clear();
 	}
