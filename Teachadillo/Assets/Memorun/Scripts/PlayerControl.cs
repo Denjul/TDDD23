@@ -31,6 +31,9 @@ public class PlayerControl : MonoBehaviour {
 	private bool Jumping = false;		//Checks if character is jumping
 	private float jumpSpeed = 200.0f;
 
+	public int colorOnGround = 0;
+
+
 	// Use this for initialization
 	void Start () {
 		GameOver.text = "";								//Resets text
@@ -178,8 +181,10 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void CalcCombo(int temp, int cor){ //Combo counter
+		colorOnGround = 0;
 		if (temp == cor){
 			combo++;
+			setScore(0);
 		}
 		else{
 			GameOfLife(true);
@@ -188,6 +193,8 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	void CalcGem(int temp){ //Handle gem and portal que, also count amount of gems collected.
+
+		colorOnGround = temp;
 		gems.Enqueue(temp);
 		portals = new Queue(gems);
 		PAM = portals.Count;

@@ -32,6 +32,7 @@ public class CreateMap : MonoBehaviour
 	private bool holes = false;
 	private int PAM = 0;
 	public int PAMinverted = 0;
+	private bool guideSigns = true;
 	
 	
 	//case6
@@ -253,7 +254,7 @@ public class CreateMap : MonoBehaviour
 					if (groundrowcounter == 10) {
 						CreateGems ();
 					} else if (groundrowcounter >= 20) {
-						
+
 						mode = 2;
 						groundrowcounter = 0;
 					}
@@ -306,6 +307,9 @@ public class CreateMap : MonoBehaviour
 						CreateCoins();
 					}
 					else if (groundrowcounter >= 35) {
+						if(obsMode>3){
+							guideSigns =false;
+						}
 						mode = 1;
 						groundrowcounter = 0;
 					}
@@ -667,9 +671,11 @@ public class CreateMap : MonoBehaviour
 			temp [i].transform.position = new Vector3 (i * 2, temp [i].transform.position.y, zPos);
 		}
 		//GameObject.Find ("unitychan").GetComponent<PlayerControl> ().PAM
-		GameObject sign = new GameObject();
-		sign = (GameObject)Instantiate (SignPortals);
-		sign.transform.position = new Vector3 (sign.transform.position.x,sign.transform.position.y, zPos);
+		if (guideSigns) {
+			GameObject sign = new GameObject ();
+			sign = (GameObject)Instantiate (SignPortals);
+			sign.transform.position = new Vector3 (sign.transform.position.x, sign.transform.position.y, zPos);
+		}
 		
 	}
 	
@@ -681,9 +687,11 @@ public class CreateMap : MonoBehaviour
 		gem = (GameObject)Instantiate (Gems [rand]);
 		gem.transform.position = new Vector3 (gem.transform.position.x,gem.transform.position.y, zPos);
 
+		if(guideSigns){
 		GameObject sign = new GameObject();
 		sign = (GameObject)Instantiate (SignGems);
 		sign.transform.position = new Vector3 (sign.transform.position.x,sign.transform.position.y, zPos);
+		}
 
 		/*
 		GameObject[] temp = new GameObject[] {
@@ -728,9 +736,11 @@ public class CreateMap : MonoBehaviour
 	}
 
 	void CreateCoinSign(){
-		GameObject sign = new GameObject();
-		sign = (GameObject)Instantiate (SignCoins);
-		sign.transform.position = new Vector3 (sign.transform.position.x,sign.transform.position.y, zPos);
+		if (guideSigns) {
+			GameObject sign = new GameObject ();
+			sign = (GameObject)Instantiate (SignCoins);
+			sign.transform.position = new Vector3 (sign.transform.position.x, sign.transform.position.y, zPos);
+		}
 	}
 
 	
